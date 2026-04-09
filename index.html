@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="scanlines"></div>
+
+  <main class="login-wrapper">
+    <div class="panel">
+
+      <div class="panel-corner tl"></div>
+      <div class="panel-corner tr"></div>
+      <div class="panel-corner bl"></div>
+      <div class="panel-corner br"></div>
+
+      <div class="panel-header">
+        <div class="logo-ring">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="28" stroke="var(--cyan)" stroke-width="1.5" stroke-dasharray="6 3" class="spin-slow"/>
+            <circle cx="30" cy="30" r="20" stroke="var(--cyan)" stroke-width="0.8" opacity="0.4"/>
+            <polygon points="30,14 42,38 18,38" stroke="var(--cyan)" stroke-width="1.5" fill="none" class="pulse-tri"/>
+          </svg>
+        </div>
+        <p class="sys-label">SISTEMA DE ACESSO</p>
+        <h1 class="title" id="panelTitle">IDENTIFICAÇÃO</h1>
+        <div class="divider">
+          <span></span><em>v2.4.1</em><span></span>
+        </div>
+      </div>
+
+      
+      <div class="form-body" id="loginForm">
+
+        <div class="field-group">
+          <label for="email" class="field-label">
+            <span class="label-icon">&#9670;</span> USUÁRIO / E-MAIL
+          </label>
+          <div class="input-wrap">
+            <input type="email" id="email" name="email" placeholder="SEU E-MAIL" autocomplete="off" />
+            <div class="input-bar"></div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="password" class="field-label">
+            <span class="label-icon">&#9670;</span> SENHA DE ACESSO
+          </label>
+          <div class="input-wrap">
+            <input type="password" id="password" name="password" placeholder="••••••••••••" />
+            <button type="button" class="toggle-pw" id="togglePw" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+            <div class="input-bar"></div>
+          </div>
+        </div>
+
+        <div class="field-extras">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="remember" />
+            <span class="checkmark"></span>
+            <span>Manter sessão ativa</span>
+          </label>
+          <a href="#" class="forgot-link">Recuperar acesso</a>
+        </div>
+
+        <button type="button" class="btn-login" id="loginBtn">
+          <span class="btn-text">INICIAR SESSÃO</span>
+          <span class="btn-arrow">&#10132;</span>
+          <div class="btn-scan"></div>
+        </button>
+
+        <div class="status-bar" id="statusBar">
+          <span class="status-dot"></span>
+          <span class="status-text" id="statusText">SISTEMA PRONTO</span>
+        </div>
+
+      </div>
+
+      
+      <div class="form-body" id="registerForm" style="display:none;">
+
+        <div class="field-group">
+          <label for="register-username" class="field-label">
+            <span class="label-icon">&#9670;</span> E-MAIL
+          </label>
+          <div class="input-wrap">
+            <input type="email" id="register-username" placeholder="SEU E-MAIL" autocomplete="off" />
+            <div class="input-bar"></div>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="register-password" class="field-label">
+            <span class="label-icon">&#9670;</span> CRIAR SENHA
+          </label>
+          <div class="input-wrap">
+            <input type="password" id="register-password" placeholder="••••••••••••" />
+            <div class="input-bar"></div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-login" id="register-button" style="margin-top: 0.5rem;">
+          <span class="btn-text">CRIAR CONTA</span>
+          <span class="btn-arrow">&#10132;</span>
+          <div class="btn-scan"></div>
+        </button>
+
+        <div class="status-bar" id="statusBarReg">
+          <span class="status-dot"></span>
+          <span class="status-text" id="statusTextReg">AGUARDANDO DADOS</span>
+        </div>
+
+      </div>
+
+      
+      <div class="panel-footer">
+        <span id="footerMsg">Não tem uma conta?</span>
+        <a href="#" id="toggleRegister">REGISTRAR ACESSO</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="login.js"></script>
+
+  <script>
+    
+    const togglePw = document.getElementById('togglePw');
+    const pwInput  = document.getElementById('password');
+    togglePw.addEventListener('click', () => {
+      const isText = pwInput.type === 'text';
+      pwInput.type = isText ? 'password' : 'text';
+      togglePw.classList.toggle('active', !isText);
+    });
+
+    
+    const toggleBtn    = document.getElementById('toggleRegister');
+    const loginForm    = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const panelTitle   = document.getElementById('panelTitle');
+    const footerMsg    = document.getElementById('footerMsg');
+    let   isRegister   = false;
+
+    toggleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      isRegister = !isRegister;
+      loginForm.style.display    = isRegister ? 'none' : 'flex';
+      registerForm.style.display = isRegister ? 'flex' : 'none';
+      panelTitle.textContent     = isRegister ? 'REGISTRO' : 'IDENTIFICAÇÃO';
+      footerMsg.textContent      = isRegister ? 'Já tem uma conta?' : 'Não tem uma conta?';
+      toggleBtn.textContent      = isRegister ? 'FAZER LOGIN' : 'REGISTRAR ACESSO';
+    });
+
+    
+    const loginBtn     = document.getElementById('loginBtn');
+    const statusBar    = document.getElementById('statusBar');
+    const statusTxt    = document.getElementById('statusText');
+    const statusBarReg = document.getElementById('statusBarReg');
+    const statusTxtReg = document.getElementById('statusTextReg');
+
+    function setStatus(msg, type) {
+      statusBar.className   = 'status-bar ' + (type || '');
+      statusTxt.textContent = msg;
+    }
+
+    function setStatusReg(msg, type) {
+      statusBarReg.className   = 'status-bar ' + (type || '');
+      statusTxtReg.textContent = msg;
+    }
+
+    
+    loginBtn.addEventListener('click', async () => {
+      const email = document.getElementById('email').value.trim();
+      const pw    = document.getElementById('password').value.trim();
+
+      if (!email || !pw) {
+        setStatus('CAMPOS OBRIGATÓRIOS NÃO PREENCHIDOS', 'error');
+        loginBtn.classList.add('shake');
+        setTimeout(() => loginBtn.classList.remove('shake'), 500);
+        return;
+      }
+
+      loginBtn.classList.add('loading');
+      setStatus('AUTENTICANDO...', 'loading');
+
+      try {
+        const res  = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pw })
+        });
+        const data = await res.json();
+
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          setStatus('ACESSO AUTORIZADO', 'success');
+        } else {
+          setStatus(data.error || 'CREDENCIAIS INVÁLIDAS', 'error');
+        }
+      } catch (err) {
+        setStatus('ERRO DE CONEXÃO COM SERVIDOR', 'error');
+      } finally {
+        loginBtn.classList.remove('loading');
+      }
+    });
+
+    
+    document.getElementById('register-button').addEventListener('click', async () => {
+      const email = document.getElementById('register-username').value.trim();
+      const pw    = document.getElementById('register-password').value.trim();
+      const btn   = document.getElementById('register-button');
+
+      if (!email || !pw) {
+        setStatusReg('CAMPOS OBRIGATÓRIOS NÃO PREENCHIDOS', 'error');
+        btn.classList.add('shake');
+        setTimeout(() => btn.classList.remove('shake'), 500);
+        return;
+      }
+
+      btn.classList.add('loading');
+      setStatusReg('REGISTRANDO...', 'loading');
+
+      try {
+        const res  = await fetch('http://localhost:3000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pw })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          setStatusReg('CONTA CRIADA COM SUCESSO!', 'success');
+          setTimeout(() => toggleBtn.click(), 1500);
+        } else {
+          setStatusReg(data.error || 'ERRO AO REGISTRAR', 'error');
+        }
+      } catch (err) {
+        setStatusReg('ERRO DE CONEXÃO COM SERVIDOR', 'error');
+      } finally {
+        btn.classList.remove('loading');
+      }
+    });
+  </script>
+
+</body>
+</html>
