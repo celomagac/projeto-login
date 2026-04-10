@@ -195,7 +195,7 @@
       setStatus('AUTENTICANDO...', 'loading');
 
       try {
-        const res  = await fetch('http://localhost:3000/login', {
+        const res = await fetch('https://projeto-login-production.up.railway.app/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pw })
@@ -232,7 +232,7 @@
       setStatusReg('REGISTRANDO...', 'loading');
 
       try {
-        const res  = await fetch('http://localhost:3000/register', {
+       const res = await fetch('https://projeto-login-production.up.railway.app/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password: pw })
